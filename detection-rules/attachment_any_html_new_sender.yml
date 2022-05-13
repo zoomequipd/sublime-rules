@@ -1,3 +1,5 @@
+authors:
+- Invalid authors
 name: "Attachment: Any HTML file (first-time sender)"
 description: |
   Potential HTML smuggling attacks from new senders.
