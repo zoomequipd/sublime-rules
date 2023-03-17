@@ -1,0 +1,38 @@
+name: "Attachment: .MSG CVE-2023-23397 - Microsoft Outlook Elevation of Privilege Vulnerability"
+description: |
+  Microsoft Threat Intelligence discovered limited, targeted abuse of a vulnerability in Microsoft Outlook for Windows that allows for new technology LAN manager (NTLM) credential theft.
+
+  Microsoft has released CVE-2023-23397 to address the critical elevation of privilege (EoP) vulnerability affecting Microsoft Outlook for Windows.
+
+  CVE-2023-23397 is a critical EoP vulnerability in Microsoft Outlook that is triggered when an attacker sends a message with an extended MAPI property with a UNC path to an SMB (TCP 445) share on a threat actor-controlled server.
+
+  No user interaction is required.
+
+  This rule detects .MSG attachments with a PidLidReminderFileParameter property, potentially exploiting CVE-2023-23397.
+
+  NOTE: You must be subscribed to one of the following YARA signature Feeds to use this rule: github.com/delivr-to/detections, github.com/Neo23x0/signature-base
+  For more information on YARA Feeds, see: https://docs.sublimesecurity.com/docs/yara
+references:
+  - "https://msrc.microsoft.com/blog/2023/03/microsoft-mitigates-outlook-elevation-of-privilege-vulnerability/"
+  - "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-23397"
+  - "https://twitter.com/MDSecLabs/status/1635791863478091778"
+  - "https://twitter.com/domchell/status/1635792200960278530"
+  - "https://twitter.com/delivr_to/status/1636074273478459395"
+  - "https://twitter.com/cyb3rops/status/1636284425985048577"
+  - "https://github.com/Neo23x0/signature-base/blob/master/yara/expl_outlook_cve_2023_23397.yar"
+  - "https://github.com/delivr-to/detections/blob/main/yara-rules/msg_cve_2023_23397.yar"
+type: "rule"
+severity: "critical"
+source: |
+  type.inbound
+  and any(attachments, .file_extension == "msg"
+      and any(file.explode(.),
+          any(.scan.yara.matches,
+              .name == "SUSP_msg_CVE_2023_23397_Mar23" or
+              .name == "SUSP_EXPL_Msg_CVE_2023_23397_Mar23"
+          )
+      )
+  )
+tags:
+  - "Suspicious attachment"
+  - "CVE-2023-23397"
