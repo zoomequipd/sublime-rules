@@ -29,4 +29,11 @@ tags:
   - "Suspicious link"
   - "Brand impersonation"
   - "Computer Vision"
+attack_types:
+  - "an attack type"
+tactics_and_techniques:
+  - "a tactic"
+  - "a technique"
+detection_technologies:
+  - "leet hack skillz"
 id: "1d7add81-9822-576a-bcae-c4440e75e393"
