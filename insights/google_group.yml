@@ -1,0 +1,5 @@
+name: "Google Group abuse"
+type: "query"
+source: | 
+  sender.email.domain.domain == "googlegroups.com"
+severity: "medium"
