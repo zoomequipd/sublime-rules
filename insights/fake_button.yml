@@ -1,4 +1,4 @@
-name: "Fake button in HTML"
+name: "HTML button with no target or href"
 type: "query"
 source: |
   regex.icontains(body.html.raw, '<a href="".{0,500}target="_blank"')

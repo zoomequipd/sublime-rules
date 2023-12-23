@@ -1,0 +1,8 @@
+name: "Invalid unsubscribe link"
+type: "query"
+source: |
+  any(body.links,
+    strings.icontains(.display_text, "unsubscribe")
+    and .href_url.domain.domain is null
+  )
+severity: "medium"
