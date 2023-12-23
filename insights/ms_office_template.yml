@@ -1,0 +1,5 @@
+name: "Template created in Microsoft Office"
+type: "query"
+source: | 
+  strings.icontains(body.html.raw, "schemas-microsoft-com:office:office")
+severity: "medium"
