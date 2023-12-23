@@ -1,0 +1,7 @@
+name: "Sender email contains brand name"
+type: "query"
+source: | 
+  any(ml.logo_detect(beta.message_screenshot()).brands,
+      strings.icontains(.name, sender.email.email)
+  )
+severity: "medium"
