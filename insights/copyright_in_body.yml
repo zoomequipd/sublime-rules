@@ -1,6 +1,13 @@
-name: "Copyright message in body"
+name: "Copyright message in body or attachment"
 type: "query"
 source: | 
   type.inbound
-  and strings.ilike(body.current_thread.text, "*all rights reserved*", "*copyright*", "*©*")
+  and (
+    strings.ilike(body.current_thread.text, "*all rights reserved*", "*copyright*", "*©*")
+    or any(attachments,
+           any(file.explode(.),
+               strings.ilike(.scan.ocr.raw, "*all rights reserved*", "*copyright*", "*©*")
+           )
+    )
+  )
 severity: "low"
