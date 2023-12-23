@@ -1,0 +1,5 @@
+name: "Mailchimp file host abuse"
+type: "query"
+source: |
+  strings.icontains(body.html.raw, "mcusercontent.com")
+severity: "medium"

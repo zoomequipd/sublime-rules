@@ -1,0 +1,5 @@
+name: "Fake button in HTML"
+type: "query"
+source: |
+  regex.icontains(body.html.raw, '<a href="".{0,500}target="_blank"')
+severity: "medium"
