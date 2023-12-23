@@ -1,4 +1,4 @@
-name: "Positive sentiment phrase in body or attachment"
+name: "Strong positive sentiment phrase in body or attachment"
 type: "query"
 source: | 
   type.inbound
@@ -8,8 +8,7 @@ source: |
                   "*Our approach to business starts with you*",
                   "*memberships make up the lifeblood of our organization*",
                   "*We value all contributions to*",
-                  "*genuinely hope you have been satisfied*",
-                  "*thank you for choosing us*"
+                  "*genuinely hope you have been satisfied*"
     )
     or any(attachments,
            any(file.explode(.),
@@ -18,8 +17,7 @@ source: |
                              "*Our approach to business starts with you*",
                              "*memberships make up the lifeblood of our organization*",
                              "*We value all contributions to*",
-                             "*genuinely hope you have been satisfied*",
-                             "*thank you for choosing us*"
+                             "*genuinely hope you have been satisfied*"
                )
            )
     )

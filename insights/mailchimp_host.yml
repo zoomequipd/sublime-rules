@@ -2,4 +2,5 @@ name: "Mailchimp file host abuse"
 type: "query"
 source: |
   strings.icontains(body.html.raw, "mcusercontent.com")
+  or any(body.links, .href_url.domain.root_domain == "mcusercontent.com")
 severity: "medium"

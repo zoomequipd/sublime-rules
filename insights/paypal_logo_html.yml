@@ -1,0 +1,5 @@
+name: "PayPal logo as HTML"
+type: "query"
+source: |
+  regex.icontains(body.html.raw, 'span.{0,20}color.{0,50}Pay.{0,20}color.{0,50}Pal')
+severity: "medium"

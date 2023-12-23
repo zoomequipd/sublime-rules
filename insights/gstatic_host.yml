@@ -1,0 +1,6 @@
+name: "Google CDN file host abuse"
+type: "query"
+source: |
+  strings.icontains(body.html.raw, "gstatic.com")
+  or any(body.links, .href_url.domain.root_domain == "gstatic.com")
+severity: "medium"
