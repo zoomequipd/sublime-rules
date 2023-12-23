@@ -1,4 +1,4 @@
-name: "'Do not reply' warning"
+name: '"Do not reply" warning'
 type: "query"
 source: | 
   type.inbound
