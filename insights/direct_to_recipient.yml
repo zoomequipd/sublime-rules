@@ -1,0 +1,6 @@
+name: "Direct to recipient"
+type: "query"
+source: | 
+  type.inbound
+  and length(recipients.to) == 1
+severity: "low"
