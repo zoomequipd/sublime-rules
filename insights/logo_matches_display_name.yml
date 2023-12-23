@@ -1,4 +1,4 @@
-name: "Logo matches sender display name"
+name: "Sender display name matches logo in screenshow"
 type: "query"
 source: | 
   any(ml.logo_detect(beta.message_screenshot()).brands,
