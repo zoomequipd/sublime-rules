@@ -1,0 +1,5 @@
+name: "Multiple brand logos in message"
+type: "query"
+source: | 
+  length(ml.logo_detect(beta.message_screenshot()).brands) > 1
+severity: "high"

@@ -1,0 +1,5 @@
+name: "iOS/iPadOS default signature in body"
+type: "query"
+source: | 
+  regex.icontains(body.current_thread.text, "sent from (i.?phone|i.?pad)") 
+severity: "low"

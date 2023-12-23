@@ -1,0 +1,10 @@
+name: "Known actor wording (0001)"
+type: "query"
+source: | 
+  type.inbound
+  and any(attachments,
+          any(file.explode(.),
+              strings.ilike(.scan.ocr.raw, "*nobody will see it*")
+          )
+  )
+severity: "high"

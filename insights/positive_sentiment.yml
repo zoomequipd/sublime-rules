@@ -1,0 +1,13 @@
+name: "Positive sentiment phrase in body or attachment"
+type: "query"
+source: | 
+  type.inbound
+  and (
+    strings.ilike(body.current_thread.text, "*extremely important to us*", "*Our approach to business starts with you*", "*memberships make up the lifeblood of our organization*", "*We value all contributions to*")
+    or any(attachments,
+           any(file.explode(.),
+               strings.ilike(.scan.ocr.raw, "*extremely important to us*", "*Our approach to business starts with you*", "*memberships make up the lifeblood of our organization*", "*We value all contributions to*")
+           )
+    )
+  )
+severity: "medium"

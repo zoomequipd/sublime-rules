@@ -1,0 +1,6 @@
+name: "Known actor wording (0002)"
+type: "query"
+source: | 
+  type.inbound
+  and strings.icontains(body.current_thread.text, "Accountability is on the Process")
+severity: "high"

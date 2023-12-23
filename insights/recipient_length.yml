@@ -1,0 +1,5 @@
+name: "# of recipients"
+type: "query"
+source: | 
+  length(recipients.to)
+severity: "informational"

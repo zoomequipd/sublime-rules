@@ -1,0 +1,5 @@
+name: "Logo detected in message screenshot"
+type: "query"
+source: | 
+  map(ml.logo_detect(beta.message_screenshot()).brands, .name)
+severity: "medium"

@@ -1,0 +1,5 @@
+name: "Image as content"
+type: "query"
+source: | 
+  strings.icontains(body.html.raw, 'src="cid:')
+severity: "low"

@@ -1,0 +1,7 @@
+name: ">10 recipients"
+type: "query"
+source: | 
+  length(recipients.to) > 10
+  or length(recipients.cc) > 10
+  or length(recipients.bcc) > 10
+severity: "low"
