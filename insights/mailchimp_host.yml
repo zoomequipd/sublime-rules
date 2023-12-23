@@ -1,4 +1,4 @@
-name: "Mailchimp file host abuse"
+name: "Mailchimp CDN abuse"
 type: "query"
 source: |
   strings.icontains(body.html.raw, "mcusercontent.com")

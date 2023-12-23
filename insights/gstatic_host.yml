@@ -1,4 +1,4 @@
-name: "Google CDN file host abuse"
+name: "Google CDN abuse"
 type: "query"
 source: |
   strings.icontains(body.html.raw, "gstatic.com")
