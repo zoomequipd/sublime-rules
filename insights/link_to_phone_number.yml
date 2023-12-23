@@ -1,0 +1,5 @@
+name: "Link to phone number in HTML"
+type: "query"
+source: | 
+  strings.icontains(body.html.raw, 'href="tel:')
+severity: "medium"

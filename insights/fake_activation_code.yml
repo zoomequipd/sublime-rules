@@ -1,0 +1,5 @@
+name: "Fake activation code in body"
+type: "query"
+source: | 
+  strings.ilike(body.current_thread.text, "*activation code*")
+severity: "medium"
