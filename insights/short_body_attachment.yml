@@ -1,0 +1,7 @@
+name: "Short body with image attachment"
+type: "query"
+source: | 
+  length(body.current_thread.text) < 100
+  and regex.icontains(body.current_thread.text, '\d\d\d')
+  and length(attachments) > 0
+severity: "medium"
