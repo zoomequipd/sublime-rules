@@ -1,4 +1,4 @@
-name: "NLU organizations"
+name: "Organizations mentioned in body"
 type: "query"
 source: | 
   distinct(map(filter(ml.nlu_classifier(body.current_thread.text).entities, .name == "org"), .text))
