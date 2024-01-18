@@ -1,0 +1,5 @@
+name: "NLU organizations"
+type: "query"
+source: | 
+  distinct(map(filter(ml.nlu_classifier(body.current_thread.text).entities, .name == "org"), .text))
+severity: "medium"
