@@ -1,0 +1,5 @@
+name: "NLU tags"
+type: "query"
+source: | 
+  map(filter(ml.nlu_classifier(body.current_thread.text).tags, .confidence in ("low", "medium", "high")), .name)
+severity: "low"
