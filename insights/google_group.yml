@@ -1,5 +1,7 @@
-name: "Google Group abuse"
+name: "Google Groups abuse"
 type: "query"
 source: | 
-  sender.email.domain.domain == "googlegroups.com"
+  filter([sender.email.email],
+       sender.email.domain.domain == "googlegroups.com"
+  )
 severity: "medium"
