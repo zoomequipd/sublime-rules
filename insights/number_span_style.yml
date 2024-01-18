@@ -1,4 +1,4 @@
-name: "Phone number displaying using styled <span>"
+name: "Phone number displayed using styled HTML span tag"
 type: "query"
 source: | 
   type.inbound
