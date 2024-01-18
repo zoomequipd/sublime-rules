@@ -1,0 +1,8 @@
+name: "Phone number displaying using styled <span>"
+type: "query"
+source: | 
+  type.inbound
+  and regex.icontains(body.html.raw,
+                      '<span\sstyle="color.{0,25}">.*(?:\d.*?){10,15}</span>'
+  )
+severity: "low"
