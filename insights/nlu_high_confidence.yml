@@ -1,5 +1,5 @@
-name: "NLU high confidence intent"
+name: "NLU intents"
 type: "query"
 source: | 
-  map(filter(ml.nlu_classifier(body.current_thread.text).intents, .confidence == "high"), .name)
+  map(filter(ml.nlu_classifier(body.current_thread.text).intents, .confidence in ("low", "medium", "high")), .name)
 severity: "medium"
