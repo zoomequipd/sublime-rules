@@ -1,0 +1,11 @@
+name: "Australian phone number"
+type: "query"
+source: | 
+  type.inbound
+  and (
+    strings.ilike(body.current_thread.text, "*+61*")
+    or any(attachments,
+           any(file.explode(.), strings.ilike(.scan.ocr.raw, "*+61*"))
+    )
+  )
+severity: "low"
