@@ -1,0 +1,7 @@
+name: "Logo detected in attachment"
+type: "query"
+source: | 
+  map(filter(any(attachments,
+        any(ml.logo_detect(.).brands, .confidence in ("low", "medium", "high"))
+  )), .name)
+severity: "medium"
