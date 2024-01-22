@@ -1,0 +1,5 @@
+name: "File creator"
+type: "query"
+source: | 
+  map(attachments, map(file.explode(.), .scan.exiftool.creator))
+severity: "informational"
