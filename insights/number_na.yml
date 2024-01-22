@@ -1,0 +1,11 @@
+name: "North American phone number"
+type: "query"
+source: | 
+  type.inbound
+  and (
+    strings.ilike(body.current_thread.text, "*+1*")
+    or any(attachments,
+           any(file.explode(.), strings.ilike(.scan.ocr.raw, "*+1*"))
+    )
+  )
+severity: "low"
