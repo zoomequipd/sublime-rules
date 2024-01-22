@@ -1,0 +1,5 @@
+name: "Attachment creation time"
+type: "query"
+source: | 
+  map(attachments, map(file.explode(.), .scan.exiftool.create_date))
+severity: "informational"
