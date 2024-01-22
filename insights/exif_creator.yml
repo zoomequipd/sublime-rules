@@ -1,4 +1,4 @@
-name: "Attachment creator (Exiftools)"
+name: "Attachment creator"
 type: "query"
 source: | 
   map(attachments, map(file.explode(.), .scan.exiftool.creator))
