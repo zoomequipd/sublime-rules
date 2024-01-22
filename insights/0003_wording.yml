@@ -1,0 +1,11 @@
+name: "Known actor wording (0003)"
+type: "query"
+source: | 
+  type.inbound
+  and (
+    strings.ilike(body.current_thread.text, "*digitally yours*")
+    or any(attachments,
+           any(file.explode(.), strings.ilike(.scan.ocr.raw, "*digitally yours*"))
+    )
+  )
+severity: "high"
