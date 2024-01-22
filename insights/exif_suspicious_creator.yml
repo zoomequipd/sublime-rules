@@ -1,0 +1,16 @@
+name: "Suspicious attachment creator"
+type: "query"
+source: | 
+  type.inbound
+  and any(attachments,
+          (
+            .file_type in $file_types_images
+            or .file_extension in $file_extensions_macros
+          )
+          and any(file.explode(.),
+                  not regex.icontains(.scan.exiftool.creator,
+                                 '[A-Za-z][0-9]'
+                  )
+          )
+  )
+severity: "medium"
