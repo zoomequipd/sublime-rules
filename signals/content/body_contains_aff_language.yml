@@ -1,0 +1,7 @@
+name: "Body: Advance Fee Fraud (AFF) Keywords"
+type: "query"
+source: |
+  length(body.current_thread.text) < 400
+  and regex.icontains(body.current_thread.text,
+                          '(donation|inheritence|\$\d,\d{3}\,\d{3}|lottery)'
+      )

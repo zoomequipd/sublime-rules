@@ -1,0 +1,6 @@
+name: "Link: Contains Commonly Abused Adobe Domains from a Non-Adobe Sender"
+type: "query"
+source: |  
+  any(body.links, 
+    .href_url.domain.domain in ("indd.adobe.com", "postoffice.adobe.com", "campaign.adobe.com"))
+  and sender.email.domain.root_domain != "adobe.com"

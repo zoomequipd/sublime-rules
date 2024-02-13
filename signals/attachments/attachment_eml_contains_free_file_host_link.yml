@@ -1,0 +1,14 @@
+name: "Attachment: EML contains link to Free File Host"
+type: "query"
+source: |
+  any(attachments,
+      (.content_type == "message/rfc822" or .file_extension =~ "eml")
+      // credential theft language in the attached EML
+      and any(file.parse_eml(.).body.links,
+              (
+                .href_url.domain.root_domain in $free_file_hosts
+                or .href_url.domain.domain in $free_file_hosts
+                or .href_url.domain.domain in $free_subdomain_hosts
+              )
+      )
+  )

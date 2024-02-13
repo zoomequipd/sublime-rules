@@ -1,0 +1,11 @@
+name: "Header: Reply-to is Freemail or Suspicious TLD"
+type: "query"
+source: | 
+  length(headers.reply_to) > 0
+      and all(headers.reply_to,
+              (
+                .email.domain.root_domain in $free_email_providers
+                or .email.domain.tld in $suspicious_tlds
+              )
+              and .email.email != sender.email.email
+      )
