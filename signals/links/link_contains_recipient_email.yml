@@ -1,5 +1,15 @@
 name: "Link: Contains Recipient Email"
 type: "query"
 source: |
-  any(body.links, any(recipients.to, strings.icontains(..href_url.url, .email.email) and .email.domain.valid))
-
+  any(body.links,
+      any(recipients.to,
+          (
+            strings.icontains(..href_url.url, .email.email)
+            and .email.domain.valid
+          )
+          and not (
+            regex.icontains(..href_url.query_params, "unsub")
+            or regex.icontains(..href_url.path, "unsub")
+          )
+      )
+  ) 

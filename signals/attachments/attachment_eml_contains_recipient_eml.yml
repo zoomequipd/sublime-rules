@@ -1,0 +1,12 @@
+name: "Attachment: EML contains Recipient Email"
+type: "query"
+source: |
+  any(attachments,
+      (.content_type == "message/rfc822" or .file_extension =~ "eml")
+      and any(recipients.to,
+              strings.icontains(file.parse_eml(..).body.current_thread.text,
+                                .email.email
+              )
+              and .email.domain.valid
+      )
+  )

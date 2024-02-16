@@ -3,13 +3,20 @@ type: "query"
 source: |
   any(body.links,
       regex.icontains(.display_text,
-                      '(view|click|download|goto|keep).(attachment|current|download|fax|file|document|message|same)s?'
+                      'verify|acknowledge|((view|click|download|goto|keep).(attachment|current|download|fax|file|document|message|same)s?)'
       )
   )
   or any(body.links,
         (
           regex.contains(.display_text,
-                          '(\\bVIEW|DOWNLOAD|CHECK|KEEP.(SAME|MY)|VERIFY|ACCESS\\b)'
+                          "\\bVIEW",
+                          "DOWNLOAD",
+                          "CHECK",
+                          "KEEP.(SAME|MY)",
+                          "VERIFY",
+                          "ACCESS\\b",
+                          "SIGN\\b",
+                          "ENABLE\\b",
           )
           and regex.match(.display_text, "^[^a-z]*[A-Z][^a-z]*$")
         )

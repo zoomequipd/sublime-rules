@@ -3,8 +3,11 @@ type: "query"
 source: |
   regex.icontains(subject.subject,
     "acknowledgement.required",
+    "acknowledge.handbook",
     "annual.benefit",
     "employee.benefits",
+    "employee.handbook",
+    "benefits.policy",
     "hr.handbook",
     "open.enrollment",
     "salary.(increase|adjustment|amendment)",

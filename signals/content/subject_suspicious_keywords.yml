@@ -34,6 +34,7 @@ source: |
     "activity.*acc(oun)?t",
     "almost.full",
     "app[li]e.[il]d",
+    "authentication",
     "authenticate.*account",
     "been.*suspend",
     "clos.*of.*account.*processed",

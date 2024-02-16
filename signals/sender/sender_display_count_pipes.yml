@@ -1,0 +1,4 @@
+name: "Sender: Display Name '|' Counts"
+type: "query"
+source: |
+  strings.count(sender.display_name, "|")

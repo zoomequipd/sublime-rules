@@ -1,4 +1,6 @@
 name: "Sender: Suspicious sender TLD"
 type: "query"
 source: |
-  sender.email.domain.tld in $suspicious_tlds
+  any($suspicious_tlds,
+      strings.ends_with(sender.email.domain.tld, strings.concat('.', .))
+  )

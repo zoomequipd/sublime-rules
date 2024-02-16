@@ -8,7 +8,7 @@ source: |
       or .content_type == "text/html"
     )
     and regex.icontains(file.parse_html(.).raw,
-                        "title.{0,20}(loading|redirect|wait|login)",
-                        "h\\d.{0,20}(loading|redirect|wait|login)"
+                        "title.{0,20}(loading|redirect|wait|login|auth|2FA|MFA)",
+                        "h\\d.{0,20}(loading|redirect|wait|login|auth|2FA|MFA)"
     )
   )

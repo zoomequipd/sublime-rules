@@ -1,0 +1,25 @@
+name: "Body: Copyright or Trademark Keywords"
+type: "query"
+source: |
+  3 of (
+    regex.icontains(body.current_thread.text, "final.attempt"),
+    regex.icontains(body.current_thread.text, "failure.to.take.action"),
+    regex.icontains(body.current_thread.text, "trademark.infring"),
+    regex.icontains(body.current_thread.text, "trademark.law.violat"),
+    regex.icontains(body.current_thread.text, "trademark.disput"),
+    regex.icontains(body.current_thread.text, "trademark.regis"),
+    regex.icontains(body.current_thread.text, "Copyright.Infring"),
+    regex.icontains(body.current_thread.text, "Copyrighted.material"),
+    regex.icontains(body.current_thread.text, "unauthorized.use.of.copyright"),
+    regex.icontains(body.current_thread.text, "Intellectual.Property"),
+    regex.icontains(body.current_thread.text, "copyright.proprietor"),
+    regex.icontains(body.current_thread.text, "Intellectual.Property"),
+    regex.icontains(body.current_thread.text, "without.(my|written).permission"),
+    regex.icontains(body.current_thread.text, "infringes.upon"),
+    regex.icontains(body.current_thread.text, "infracts.copyright.law"),
+    regex.icontains(body.current_thread.text, "copyright.holder"),
+    regex.icontains(body.current_thread.text, "rights.of.creator"),
+    regex.icontains(body.current_thread.text, "Contains.Copyright"),
+    regex.icontains(body.current_thread.text, "Appeal.Form"),
+    regex.icontains(body.current_thread.text, "illegally.shared"),
+  )

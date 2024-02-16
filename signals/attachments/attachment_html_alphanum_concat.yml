@@ -8,6 +8,8 @@ source: |
         or .content_type == "text/html"
       )
       and (
-          regex.icontains(file.parse_html(.).raw, "['\"]\\s*\\w+\\s*['\"]\\s*\\+\\s*['\"]\\s*\\w+\\s*['\"]")
+        regex.icontains(file.parse_html(.).raw,
+                        "['\"]\\s*[^'\"]+\\s*['\"]\\s*\\+\\s*['\"]\\s*[^'\"]+\\s*['\"]"
+        )
       )
   )
