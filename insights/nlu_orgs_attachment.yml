@@ -1,4 +1,4 @@
-name: "Organizations detected in attachment"
+name: "Organizations mentioned in attachment"
 type: "query"
 source: | 
   map(attachments,
