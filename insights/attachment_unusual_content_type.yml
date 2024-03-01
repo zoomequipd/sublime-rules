@@ -1,5 +1,5 @@
 name: "Unusual attachment content type"
 type: "query"
 source: | 
-  map(filter(attachments, not regex.imatch(.content_type, '[a-z]*\/[a-z]*$')), .content_type)
+  map(filter(attachments, not regex.imatch(.content_type, '[a-z]*\/[a-z]*-?[a-z]*$')), .content_type)
 severity: "high"
