@@ -1,0 +1,11 @@
+name: "48 hour cancellation time"
+type: "query"
+source: | 
+  type.inbound
+  and (
+    strings.ilike(body.current_thread.text, "*48 hours*")
+    or any(attachments,
+           any(file.explode(.), strings.ilike(.scan.ocr.raw, "*48 hours*"))
+    )
+  )
+severity: "low"
