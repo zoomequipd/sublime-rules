@@ -1,0 +1,5 @@
+name: "Sender diplay name"
+type: "query"
+source: | 
+  sender.display_name
+severity: "informational"
