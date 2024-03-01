@@ -1,7 +1,12 @@
-name: "Sender email contains brand name"
+name: "Sender email address matches detected logos"
 type: "query"
 source: | 
   any(ml.logo_detect(beta.message_screenshot()).brands,
       strings.icontains(.name, sender.email.email)
+  )
+  or any(attachments,
+         any(ml.logo_detect(.).brands,
+             strings.icontains(.name, sender.email.email)
+         )
   )
 severity: "medium"
