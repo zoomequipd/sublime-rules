@@ -1,0 +1,12 @@
+name: "Sender display name matches detected logos"
+type: "query"
+source: | 
+  any(ml.logo_detect(beta.message_screenshot()).brands,
+      strings.icontains(.name, sender.display_name)
+  )
+  or any(attachments,
+         any(ml.logo_detect(.).brands,
+             strings.icontains(.name, sender.display_name)
+         )
+  )
+severity: "medium"
