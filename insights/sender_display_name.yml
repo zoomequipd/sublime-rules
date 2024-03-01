@@ -1,4 +1,4 @@
-name: "Sender diplay name"
+name: "Sender display name"
 type: "query"
 source: | 
   sender.display_name
