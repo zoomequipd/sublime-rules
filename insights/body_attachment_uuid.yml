@@ -3,11 +3,11 @@ type: "query"
 source: | 
   type.inbound
   and (
-    strings.ilike(body.current_thread.text, "*all rights reserved*", "*copyright*", "*©*")
-    or any(attachments,
-           any(file.explode(.),
-               strings.ilike(.scan.ocr.raw, "*all rights reserved*", "*copyright*", "*©*")
-           )
-    )
+      regex.icontains(body.current_thread.text, '[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}')
+      or any(attachments,
+              any(file.explode(.),
+                  regex.icontains(.scan.ocr.raw, '[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}')
+              )
+      )
   )
 severity: "low"
