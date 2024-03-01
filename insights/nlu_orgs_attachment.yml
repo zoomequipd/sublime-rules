@@ -1,0 +1,14 @@
+name: "Organizations detected in attachment"
+type: "query"
+source: | 
+  map(attachments,
+      map(file.explode(.),
+          distinct(map(filter(ml.nlu_classifier(.scan.ocr.raw).entities,
+                              .name == "org"
+                       ),
+                       .text
+                   )
+          )
+      )
+  )
+severity: "medium"
