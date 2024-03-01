@@ -4,7 +4,7 @@ source: |
   map(attachments,
       map(file.explode(.),
           map(filter(ml.nlu_classifier(.scan.ocr.raw).intents,
-                     .confidence in ("low", "medium", "high")
+                     .confidence in ("low", "medium", "high") and .name != "benign"
               ),
               .name
           )
