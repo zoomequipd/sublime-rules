@@ -1,0 +1,6 @@
+name: "Informal language in body"
+type: "query"
+source: | 
+  type.inbound
+  and strings.ilike(body.current_thread.text, "*gooo*d*", "*lookin'*", "*catch you later*", "*somethin'*", "*peeps*", "*stoked*")
+severity: "high"
