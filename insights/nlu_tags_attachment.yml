@@ -1,0 +1,13 @@
+name: "NLU tags detected in attachment"
+type: "query"
+source: | 
+  map(attachments,
+    map(file.explode(.),
+        map(filter(ml.nlu_classifier(.scan.ocr.raw).tags,
+                   .confidence in ("low", "medium", "high")
+            ),
+            .name
+        )
+    )
+  )
+severity: "low"
