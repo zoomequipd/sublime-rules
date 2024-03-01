@@ -1,0 +1,5 @@
+name: "Attachment content type"
+type: "query"
+source: | 
+  map(attachments, .content_type)
+severity: "informational"
