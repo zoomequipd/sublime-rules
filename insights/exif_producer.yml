@@ -1,0 +1,5 @@
+name: "Attachment producer"
+type: "query"
+source: | 
+  map(attachments, map(file.explode(.), .scan.exiftool.producer))
+severity: "informational"
