@@ -1,0 +1,7 @@
+name: "Attachment contains character map"
+type: "query"
+source: | 
+  any(attachments,
+      any(file.explode(.), any(.scan.strings.strings, . == 'begincmap'))
+  )
+severity: "low"
