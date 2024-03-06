@@ -1,0 +1,5 @@
+name: "Attachment contains embedded fonts"
+type: "query"
+source: | 
+  any(attachments, any(file.explode(.), .flavors.mime == "font/sfnt"))
+severity: "medium"
