@@ -1,10 +1,9 @@
-name: "Phone number using dash and whitespace spacers"
+name: "Phone number using dash and whitespace spacers in attachment"
 type: "query"
 source: | 
   type.inbound
   and (
-    regex.icontains(body.current_thread.text, '\d\d\d\W?--\d\d\d\s\d\d\d\d')
-    or any(attachments,
+    any(attachments,
            any(file.explode(.),
                regex.icontains(.scan.ocr.raw, '\d\d\d\W?--\d\d\d\s\d\d\d\d')
            )

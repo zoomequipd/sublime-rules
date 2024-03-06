@@ -1,0 +1,6 @@
+name: '"Do not reply" warning in body'
+type: "query"
+source: | 
+  type.inbound
+  and strings.ilike(body.current_thread.text, "*automated email system*", "*do not reply*", "*unmonitored*")
+severity: "medium"

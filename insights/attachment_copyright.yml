@@ -1,14 +1,8 @@
-name: "Copyright message in body or attachment"
+name: "Copyright message in attachment"
 type: "query"
 source: | 
   type.inbound
-  and (
-    strings.ilike(body.current_thread.text,
-                  "*all rights reserved*",
-                  "*copyright*",
-                  "*©*"
-    )
-    or any(attachments,
+  and any(attachments,
            any(file.explode(.),
                (
                  any(.scan.strings.strings,
@@ -25,5 +19,4 @@ source: |
                )
            )
     )
-  )
 severity: "low"

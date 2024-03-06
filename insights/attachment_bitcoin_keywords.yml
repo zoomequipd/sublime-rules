@@ -2,9 +2,7 @@ name: "Bitcoin mentioned in body or attachment"
 type: "query"
 source: | 
   type.inbound
-  and (
-    strings.ilike(body.current_thread.text, "*bitcoin*", "*btc*")
-    or any(attachments,
+  and any(attachments,
            any(file.explode(.),
                (
                  any(.scan.strings.strings,
@@ -14,5 +12,4 @@ source: |
                )
            )
     )
-  )
 severity: "low"

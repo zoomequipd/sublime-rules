@@ -1,0 +1,6 @@
+name: "Phone number using dash and whitespace spacers in body"
+type: "query"
+source: | 
+  type.inbound
+  and regex.icontains(body.current_thread.text, '\d\d\d\W?--\d\d\d\s\d\d\d\d')
+severity: "medium"

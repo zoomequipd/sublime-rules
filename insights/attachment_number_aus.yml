@@ -1,11 +1,8 @@
-name: "Australian phone number"
+name: "Australian phone number in attachment"
 type: "query"
 source: | 
   type.inbound
-  and (
-    strings.ilike(body.current_thread.text, "*+61*")
-    or any(attachments,
+  and any(attachments,
            any(file.explode(.), strings.ilike(.scan.ocr.raw, "*+61*"))
     )
-  )
 severity: "low"

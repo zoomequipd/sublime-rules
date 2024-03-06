@@ -1,0 +1,8 @@
+name: "North American phone number in attachment"
+type: "query"
+source: | 
+  type.inbound
+  and any(attachments,
+           any(file.explode(.), strings.ilike(.scan.ocr.raw, "*+1*", "*+?1*"))
+    )
+severity: "low"

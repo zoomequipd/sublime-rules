@@ -1,0 +1,6 @@
+name: "Single PDF attached"
+type: "query"
+source: | 
+  length(attachments) == 1
+  and all(attachments, .file_type == "pdf")
+severity: "low"

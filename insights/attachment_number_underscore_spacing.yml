@@ -1,13 +1,10 @@
-name: "Phone number using underscore spacers"
+name: "Phone number using underscore spacers in attachment"
 type: "query"
 source: | 
   type.inbound
-  and (
-    regex.icontains(body.current_thread.text, '\W?\d\d\d\W?_\d\d\d_\d\d\d\d')
-    or any(attachments,
+  and any(attachments,
            any(file.explode(.),
                regex.icontains(.scan.ocr.raw, '\W?\d\d\d\W?_\d\d\d_\d\d\d\d')
            )
     )
-  )
 severity: "medium"

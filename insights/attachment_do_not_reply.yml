@@ -1,13 +1,10 @@
-name: '"Do not reply" warning'
+name: '"Do not reply" warning in attachment'
 type: "query"
 source: | 
   type.inbound
-  and (
-    strings.ilike(body.current_thread.text, "*automated email system*", "*do not reply*", "*unmonitored*")
-    or any(attachments,
+  and any(attachments,
            any(file.explode(.),
                strings.ilike(.scan.ocr.raw, "*automated email system*", "*do not reply*", "*unmonitored*")
            )
     )
-  )
 severity: "medium"

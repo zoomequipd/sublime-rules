@@ -1,0 +1,6 @@
+name: "North American phone number in body"
+type: "query"
+source: | 
+  type.inbound
+  and strings.ilike(body.current_thread.text, "*+1*", "*+?1*")
+severity: "low"
