@@ -4,7 +4,12 @@ source: |
   type.inbound
   and any(attachments,
            any(file.explode(.),
-               strings.ilike(.scan.ocr.raw, "*automated email system*", "*do not reply*", "*unmonitored*")
+               (
+                any(.scan.strings.strings,
+                     strings.ilike(., "*automated email system*", "*do not reply*", "*unmonitored*")
+                 )
+                or strings.ilike(.scan.ocr.raw, "*automated email system*", "*do not reply*", "*unmonitored*")
+               )
            )
     )
 severity: "medium"

@@ -1,4 +1,4 @@
-name: "Bitcoin mentioned in body or attachment"
+name: "Bitcoin mentioned in attachment"
 type: "query"
 source: | 
   type.inbound

@@ -3,8 +3,17 @@ type: "query"
 source: | 
   type.inbound
   and any(attachments,
-              any(file.explode(.),
-                  regex.icontains(.scan.ocr.raw, '[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}')
+          any(file.explode(.),
+              (
+                any(.scan.strings.strings,
+                    regex.icontains(.,
+                                    '[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}'
+                    )
+                )
+                or regex.icontains(.scan.ocr.raw,
+                                  '[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}'
+                )
               )
-      )
+          )
+  )
 severity: "low"

@@ -5,7 +5,10 @@ source: |
   and (
     any(attachments,
            any(file.explode(.),
-               regex.icontains(.scan.ocr.raw, '\d\d\d\W?--\d\d\d\s\d\d\d\d')
+            any(.scan.strings.strings,
+                  regex.icontains(., '\d\d\d\W?--\d\d\d\s\d\d\d\d')
+              )
+               or regex.icontains(.scan.ocr.raw, '\d\d\d\W?--\d\d\d\s\d\d\d\d')
            )
     )
   )

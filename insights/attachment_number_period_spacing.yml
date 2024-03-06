@@ -1,10 +1,17 @@
 name: "Phone number using period spacers in attachment"
 type: "query"
 source: | 
-  type.inbound
-  and any(attachments,
-           any(file.explode(.),
-               regex.icontains(.scan.ocr.raw, '\W?\d\d\d\W?\.\d\d\d\.\d\d\d\d')
-           )
+    type.inbound
+    and any(attachments,
+            any(file.explode(.),
+                (
+                any(.scan.strings.strings,
+                    regex.icontains(., '\W?\d\d\d\W?\.\d\d\d\.\d\d\d\d')
+                )
+                or regex.icontains(.scan.ocr.raw,
+                                    '\W?\d\d\d\W?\.\d\d\d\.\d\d\d\d'
+                )
+                )
+            )
     )
 severity: "medium"
