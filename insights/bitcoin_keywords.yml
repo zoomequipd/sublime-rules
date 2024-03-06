@@ -1,0 +1,18 @@
+name: "Bitcoin mentioned in body or attachment"
+type: "query"
+source: | 
+  type.inbound
+  and (
+    strings.ilike(body.current_thread.text, "*bitcoin*", "*btc*")
+    or any(attachments,
+           any(file.explode(.),
+               (
+                 any(.scan.strings.strings,
+                     strings.ilike(., "*bitcoin*", "*btc*")
+                 )
+                 or strings.ilike(.scan.ocr.raw, "*bitcoin*", "*btc*")
+               )
+           )
+    )
+  )
+severity: "low"
