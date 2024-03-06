@@ -1,13 +1,6 @@
-name: "Recipient email in body or attachment"
+name: "Recipient email in body"
 type: "query"
 source: | 
   type.inbound
-  and (
-      any(recipients.to, strings.icontains(body.current_thread.text, .email.email))
-      or any(attachments,
-              any(file.explode(.),
-                  any(recipients.to, strings.icontains(..scan.ocr.raw, .email.email))
-              )
-      )
-  )
+  and any(recipients.to, strings.icontains(body.current_thread.text, .email.email))
 severity: "low"

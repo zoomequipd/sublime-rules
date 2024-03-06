@@ -1,0 +1,10 @@
+name: "Recipient email in attachment"
+type: "query"
+source: | 
+  type.inbound
+  and any(attachments,
+              any(file.explode(.),
+                  any(recipients.to, strings.icontains(..scan.ocr.raw, .email.email))
+              )
+      )
+severity: "low"
