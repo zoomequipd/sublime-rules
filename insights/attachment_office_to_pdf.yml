@@ -1,0 +1,15 @@
+name: "Attachment is a converted Office document (Office -> PDF)"
+type: "query"
+source: | 
+  type.inbound
+  and any(attachments,
+          any(file.explode(.),
+              (
+                .file_extension == "pdf"
+                or .flavors.mime == "application/pdf"
+                or any(.flavors.yara, . == "pdf_file")
+              )
+              and (strings.ilike(.scan.exiftool.creator, "*microsoft*", "*word*") or strings.ilike(.scan.exiftool.producer, "*microsoft*", "*word*"))
+          )
+  )
+severity: "medium"
