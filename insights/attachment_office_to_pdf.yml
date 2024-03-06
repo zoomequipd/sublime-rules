@@ -9,7 +9,7 @@ source: |
                 or .flavors.mime == "application/pdf"
                 or any(.flavors.yara, . == "pdf_file")
               )
-              and (strings.ilike(.scan.exiftool.creator, "*microsoft*", "*word*") or strings.ilike(.scan.exiftool.producer, "*microsoft*", "*word*"))
+              and (strings.ilike(.scan.exiftool.creator, "*microsoft*", "*word*", "*office*") or strings.ilike(.scan.exiftool.producer, "*microsoft*", "*word*", "*office*"))
           )
   )
 severity: "medium"
