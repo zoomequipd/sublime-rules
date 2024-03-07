@@ -3,8 +3,8 @@ type: "query"
 source: | 
   type.inbound
   and any(attachments,
-              any(file.explode(.),
-                  any(recipients.to, strings.icontains(..scan.ocr.raw, .email.email))
-              )
-      )
+          any(file.explode(.),
+              any(recipients.to, strings.icontains(..scan.ocr.raw, .email.email) and .email.domain.valid)
+          )
+  )
 severity: "low"
