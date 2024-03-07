@@ -1,0 +1,6 @@
+name: "Recipient email in body"
+type: "query"
+source: | 
+  type.inbound
+  and any(recipients.to, strings.icontains(body.current_thread.text, .email.email) and .email.domain.valid)
+severity: "low"
