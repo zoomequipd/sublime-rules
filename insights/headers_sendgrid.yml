@@ -1,0 +1,8 @@
+name: "Headers: Hops contains Sendgrid Field"
+type: "query"
+source: |
+  type.inbound
+  and any(headers.hops,
+          any(.fields, .name == "X-SG-EID")
+  )
+severity: "low"
