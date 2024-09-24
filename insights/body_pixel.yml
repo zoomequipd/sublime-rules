@@ -1,0 +1,34 @@
+name: "Tracking pixel in HTML body"
+type: "query"
+source: |
+  (
+    // standard html
+    regex.contains(body.html.raw,
+                  '<img[^>]*?width="1(px)?"[^>]*?height="1(px)?"[^>]*?style="[^"]*(visibility:hidden|display:none)[^"]*"[^>]*?>'
+    )
+    // handle quoted printable variants
+    or regex.contains(body.html.raw,
+                      '<img\s+width=3D"1"\s+height=3D"1"\s+src=3D"http[^"]+\.(gif|jpg|jpeg|png|bmp)">'
+    )
+    or regex.contains(body.html.raw,
+                      '<img[^>]*?style="[^"]*?(width:0px;|max-height:0px;|overflow:hidden;|display:block;?){4}[^"]*?"[^>]*?>'
+    )
+    or regex.contains(body.html.raw,
+                      '<img[^>]*?style="[^"]*?width:0px;[^"]*?max-height:0px;[^"]*?overflow:hidden;[^"]*?display:block[^"]*?"[^>]*?>'
+    )
+    or regex.contains(body.html.raw,
+                      '<img[^>]*?(width="1(px)?"|height="1(px)?"|style="[^"]*?(width:\s*1px|height:\s*1px)[^"]*?")[^>]*?>'
+    )
+    or regex.contains(body.html.raw,
+                      '<img[^>]*?src="https?:\/\/[^"]+\/view\?id=[^"]+"[^>]*?width="0"[^>]*?height="0"[^>]*?>'
+    )
+    or regex.contains(body.html.raw,
+                      '<img[^>]*?(border|width|heigth)="0"[^>]*?src="(https?:\/\/[^"]+(track|pixel|open|view)[^"]+)"[^>]*?>'
+    )
+    or regex.contains(body.html.raw,
+                      '<img[^>]*?(height|width)="0"[^>]*?src="(https?:\/\/[^"]+)"[^>]*?>'
+    ) or regex.contains(body.html.raw,
+                  "<img [^>]*(?:width|height)\\s*=\\s*[\"']?[01](?:px)?[\"']?|<img [^>]*src\\s*=\\s*[\"'][^\"']*(?:1x1|tracking|pixel|spacer|beacon|clear|transparent)[^\"']*[\"']|<img [^>]*style\\s*=\\s*[\"'][^\"']*(?:visibility\\s*:\\s*hidden|display\\s*:\\s*none)[^\"']*[\"']"
+    )
+  )
+severity: "low"
