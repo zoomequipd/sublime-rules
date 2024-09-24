@@ -1,0 +1,9 @@
+name: "Count of phone numbers in body"
+type: "query"
+source: | 
+  (
+    regex.icount(body.current_thread.text, '\+\s?1') +
+    regex.icount(body.current_thread.text, '\+?1\s[0-9]{3}\s([0-9]{7}|[0-9]{3}\s[0-9]{4})') +
+    regex.icount(body.current_thread.text, '\b1\d{10}\b')
+  ) > 1
+severity: "low"
