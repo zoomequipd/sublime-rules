@@ -1,0 +1,12 @@
+name: "Screenshot attached"
+type: "query"
+source: | 
+  type.inbound
+  and any(attachments,
+          any(file.explode(.),
+              any(.scan.exiftool.fields,
+                  .key == "UserComment" and .value == "Screenshot"
+              )
+          )
+  )
+severity: "low"
