@@ -1,0 +1,5 @@
+name: "Failed UUID insertion in body"
+type: "query"
+source: | 
+  strings.icontains(body.current_thread.text, '#GUID#')
+severity: "low"
