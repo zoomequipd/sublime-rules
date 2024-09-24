@@ -1,4 +1,4 @@
-name: "Count of phone numbers in body"
+name: "Multiple phone numbers in body"
 type: "query"
 source: | 
   (
