@@ -1,0 +1,13 @@
+name: "Exiftool: DeviceManufacturer"
+type: "query"
+source: | 
+  map(attachments,
+      map(file.explode(.),
+          map(filter(.scan.exiftool.fields,
+                     .key == "DeviceManufacturer"
+              ),
+              .value
+          )
+      )
+  )
+severity: "informational"
