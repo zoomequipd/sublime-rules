@@ -1,0 +1,13 @@
+name: "Exiftool: Megapixels"
+type: "query"
+source: | 
+  map(attachments,
+      map(file.explode(.),
+          map(filter(.scan.exiftool.fields,
+                     .key == "Megapixels"
+              ),
+              .value
+          )
+      )
+  )
+severity: "informational"
