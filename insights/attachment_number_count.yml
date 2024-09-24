@@ -1,0 +1,11 @@
+name: "Count of phone numbers in attachment"
+type: "query"
+source: | 
+  map(attachments,
+      map(file.explode(.),
+          regex.icount(.scan.ocr.raw, '\+\s?1') + regex.icount(.scan.ocr.raw,
+                                                               '\+?1\s[0-9]{3}\s([0-9]{7}|[0-9]{3}\s[0-9]{4})'
+          )
+      )
+  )
+severity: "low"
