@@ -1,0 +1,11 @@
+name: "Headers: Hops contains List-Unsubscribe One-Click"
+type: "query"
+source: |
+  type.inbound
+  and any(headers.hops,
+          any(.fields,
+              .name == 'List-Unsubscribe-Post'
+              and .value == 'List-Unsubscribe=One-Click'
+          )
+  )
+severity: "low"
