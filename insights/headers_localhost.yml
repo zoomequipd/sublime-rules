@@ -1,0 +1,10 @@
+name: "Message originated from 127.0.0.1 or localhost"
+type: "query"
+source: | 
+  any(headers.hops,
+            any(distinct(.fields, .name == "Received"),
+                strings.contains(.value, "127.0.0.1")
+                or strings.contains(.value, "localhost")
+            )
+    )
+severity: "medium"
