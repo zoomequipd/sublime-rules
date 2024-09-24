@@ -1,0 +1,10 @@
+name: "File share language in subject"
+type: "query"
+source: | 
+  strings.ilike(subject.subject,
+                "*sent you a file*",
+                "*shared a file with you*",
+                "*shared with you*",
+                "*invited you to access a file*"
+  )
+severity: "medium"
