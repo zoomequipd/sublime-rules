@@ -1,0 +1,5 @@
+name: "Shipping language in body"
+type: "query"
+source: | 
+  strings.ilike(body.current_thread.text, "*dispatch*", "*en route*")
+severity: "low"
