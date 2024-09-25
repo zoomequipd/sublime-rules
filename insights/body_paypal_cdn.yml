@@ -1,0 +1,5 @@
+name: "PayPal CDN abuse in HTML body"
+type: "query"
+source: |
+  strings.icontains(body.html.raw, 'paypalobjects.com')
+severity: "medium"
