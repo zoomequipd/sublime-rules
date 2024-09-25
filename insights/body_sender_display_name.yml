@@ -1,0 +1,5 @@
+name: "Sender display name in body"
+type: "query"
+source: | 
+  strings.icontains(body.current_thread.text, sender.display_name)
+severity: "medium"
