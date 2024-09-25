@@ -1,0 +1,5 @@
+name: "Shipping language in subject"
+type: "query"
+source: | 
+  strings.ilike(subject.subject, "*dispatch*", "*en route*")
+severity: "low"
