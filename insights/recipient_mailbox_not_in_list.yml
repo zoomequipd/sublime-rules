@@ -1,0 +1,5 @@
+name: "Mailbox recipient not in recipients list"
+type: "query"
+source: | 
+  any(recipients.to, .email.email != mailbox.email.email)
+severity: "low"
