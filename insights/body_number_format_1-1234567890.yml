@@ -1,0 +1,7 @@
+name: "Phone number format 1-1234567890 in body"
+type: "query"
+source: | 
+  regex.icontains(body.current_thread.text,
+                     '\b1-\d{10}\b'
+  )
+severity: "medium"
