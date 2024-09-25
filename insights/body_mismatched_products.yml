@@ -1,0 +1,5 @@
+name: "Brand does not match product (body)"
+type: "query"
+source: | 
+  strings.ilike(body.current_thread.text, "*mcafee lifelock*")
+severity: "low"
