@@ -1,0 +1,7 @@
+name: "Date format %A, %d %B %Y in body"
+type: "query"
+source: | 
+  regex.icontains(body.current_thread.text,
+                '(monday|tuesday|wednesday|thursday|friday|saturday|sunday), \d\d (January|February|March|April|May|June|July|August|September|October|November|December) \d\d\d\d'
+  )
+severity: "low"
