@@ -1,0 +1,5 @@
+name: "$ amount in subject"
+type: "query"
+source: | 
+  regex.icontains(subject.subject, '\$\d{3,4}.\d\d')
+severity: "low"
