@@ -2,4 +2,12 @@ name: "Brand does not match product (body)"
 type: "query"
 source: | 
   strings.ilike(body.current_thread.text, "*mcafee lifelock*")
+  or (
+    any(ml.nlu_classifier(body.current_thread.text).entities,
+        .name == "org" and .text =~ "McAfee"
+    )
+    and any(ml.nlu_classifier(body.current_thread.text).entities,
+            .name == "org" and .text =~ "LifeLock"
+    )
+  )
 severity: "low"
