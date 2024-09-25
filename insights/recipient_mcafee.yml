@@ -1,0 +1,5 @@
+name: "McAfee domain in recipients list"
+type: "query"
+source: | 
+  any(recipients.to, .email.domain.domain in ("mcafee.com"))
+severity: "high"
