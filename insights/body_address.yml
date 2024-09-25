@@ -1,0 +1,10 @@
+name: "Address in body"
+type: "query"
+source: | 
+  regex.icontains(body.current_thread.text,
+                  '\d{1,5} .{0,20} (avenue|ave|drive|dr|road|rd|street|st|lane|ln|boulevard|blvd|way|circle|cir|court|ct|place|pl|terrace|ter|parkway|pkwy|alley|highway|hwy|expressway|expy|freeway|fwy|turnpike|tpke|crescent|cres|grove|square|sq|trail|trl)'
+  )
+  or regex.icontains(body.current_thread.text,
+                     '\b(Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|West Virginia|Wisconsin|Wyoming|AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY).{0,1}\d\d\d\d\d'
+  )
+severity: "low"
