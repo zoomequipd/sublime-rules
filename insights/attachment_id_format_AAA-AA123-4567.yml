@@ -7,11 +7,11 @@ source: |
               (
                 any(.scan.strings.strings,
                     regex.contains(.,
-                                    '(invoice|order).{0,20}[A-Z]{3}-[A-Z]{2}\d\d\d-\d\d\d\d'
+                                    '(invoice|order|subscription).{0,20}[A-Z]{3}-[A-Z]{2}\d\d\d-\d\d\d\d'
                     )
                 )
                 or regex.contains(.scan.ocr.raw,
-                                   '(invoice|order).{0,20}[A-Z]{3}-[A-Z]{2}\d\d\d-\d\d\d\d'
+                                   '(invoice|order|subscription).{0,20}[A-Z]{3}-[A-Z]{2}\d\d\d-\d\d\d\d'
                 )
               )
           )
