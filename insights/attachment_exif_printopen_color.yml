@@ -1,0 +1,13 @@
+name: "PrintOpen color profile used in attachment"
+type: "query"
+source: | 
+  type.inbound
+  and any(attachments,
+          any(file.explode(.),
+              any(.scan.exiftool.fields,
+                  .key == "ProfileCopyright"
+                  and strings.icontains(.value, "PrintOpen")
+              )
+          )
+  )
+severity: "medium"
