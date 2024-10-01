@@ -1,0 +1,19 @@
+name: "Invoice/order ID format AAA-AA123-4567 in attachment"
+type: "query"
+source: | 
+  type.inbound
+  and any(attachments,
+          any(file.explode(.),
+              (
+                any(.scan.strings.strings,
+                    regex.icontains(.,
+                                    '(invoice|order).{0,20}[A-Z]{3}-[A-Z]{2}\d\d\d-\d\d\d\d'
+                    )
+                )
+                or regex.icontains(.scan.ocr.raw,
+                                   '(invoice|order).{0,20}[A-Z]{3}-[A-Z]{2}\d\d\d-\d\d\d\d'
+                )
+              )
+          )
+  )
+severity: "low"
