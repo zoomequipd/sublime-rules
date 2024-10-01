@@ -1,0 +1,5 @@
+name: "Blank subject"
+type: "query"
+source: | 
+  length(subject.subject) == 0
+severity: "low"
