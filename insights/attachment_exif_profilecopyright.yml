@@ -1,0 +1,13 @@
+name: "Exiftool: ProfileCopyright"
+type: "query"
+source: | 
+  map(attachments,
+      map(file.explode(.),
+          map(filter(.scan.exiftool.fields,
+                     .key == "ProfileCopyright"
+              ),
+              .value
+          )
+      )
+  )
+severity: "informational"
