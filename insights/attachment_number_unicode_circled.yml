@@ -1,0 +1,15 @@
+name: 'Phone number using "Dingbat Negative Circled Sans-Serif" digits in attachment'
+type: "query"
+source: | 
+  type.inbound
+  and any(attachments,
+          any(file.explode(.),
+              (
+                any(.scan.strings.strings, regex.icontains(., '🄌 ➊ ➋ ➌ ➍ ➎ ➏ ➐ ➑ ➒'))
+                // this is how OCR sees these characters
+                or any(.scan.strings.strings, regex.icontains(., '000-0000'))
+                or regex.icontains(.scan.ocr.raw, '000-0000')
+              )
+          )
+  )
+severity: "medium"
