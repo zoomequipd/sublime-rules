@@ -9,8 +9,8 @@ source: |
                 or regex.icontains(.scan.ocr.raw, '\+\s?1')
               )
               or (
-                any(.scan.strings.strings, regex.icontains(., '\+?1\s[0-9]{3}\s([0-9]{7}|[0-9]{3}\s[0-9]{4})'))
-                or regex.icontains(.scan.ocr.raw, '\+?1\s[0-9]{3}\s([0-9]{7}|[0-9]{3}\s[0-9]{4})')
+                any(.scan.strings.strings, regex.icontains(., '\+?1\s\(?[0-9]{3}\)?\s([0-9]{7}|[0-9]{3}(\s|-)[0-9]{4})'))
+                or regex.icontains(.scan.ocr.raw, '\+?1\s\(?[0-9]{3}\)?\s([0-9]{7}|[0-9]{3}(\s|-)[0-9]{4})')
               )
           )
   )
