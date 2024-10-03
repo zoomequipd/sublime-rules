@@ -1,0 +1,7 @@
+name: "Invoice/order ID format 12a345b6-78c0 in body"
+type: "query"
+source: | 
+  regex.contains(body.current_thread.text,
+                   '(\d\d[a-z]\d){2}-\d\d[a-z]\d'
+  )
+severity: "low"
