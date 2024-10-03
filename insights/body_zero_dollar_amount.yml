@@ -1,0 +1,7 @@
+name: "$0.00 amount in body"
+type: "query"
+source: | 
+  regex.contains(body.current_thread.text,
+                 '\$\s?0.00'
+  )
+severity: "low"
