@@ -1,0 +1,6 @@
+name: "Norton logo as HTML"
+type: "query"
+source: | 
+  regex.icontains(body.html.raw, 'life.{5,50}lock')
+  or regex.icontains(body.html.raw, 'span.{0,200}color.{0,50}Norton')
+severity: "medium"

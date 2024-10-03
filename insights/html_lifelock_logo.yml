@@ -1,6 +1,0 @@
-name: "Norton LifeLock logo as HTML"
-type: "query"
-source: | 
-  type.inbound
-  and regex.icontains(body.html.raw, 'life.{5,50}lock')
-severity: "medium"
