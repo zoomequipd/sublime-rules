@@ -1,0 +1,5 @@
+name: "Phone number format (123) 456-7890 in body"
+type: "query"
+source: | 
+  regex.icontains(body.current_thread.text, '\(\d\d\d\) \d\d\d-\d\d\d\d')
+severity: "medium"
