@@ -1,0 +1,7 @@
+name: 'Date format "01/01/2024" in body'
+type: "query"
+source: | 
+  regex.icontains(body.current_thread.text,
+              '\d\d/\d\d/\d\d\d\d'
+  )
+severity: "low"
