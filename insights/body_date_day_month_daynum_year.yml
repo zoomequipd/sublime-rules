@@ -1,0 +1,7 @@
+name: 'Date format "Monday, January 01, 2024" in body'
+type: "query"
+source: | 
+  regex.icontains(body.current_thread.text,
+                '(monday|tuesday|wednesday|thursday|friday|saturday|sunday), (January|February|March|April|May|June|July|August|September|October|November|December) \d\d, \d\d\d\d'
+  )
+severity: "low"
