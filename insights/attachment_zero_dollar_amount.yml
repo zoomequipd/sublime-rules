@@ -1,0 +1,12 @@
+name: "$0.00 amount in attachment"
+type: "query"
+source: | 
+  any(attachments,
+      any(file.explode(.),
+          (
+            any(.scan.strings.strings, regex.icontains(., '\$\s?0.00'))
+            or regex.icontains(.scan.ocr.raw, '\$\s?0.00')
+          )
+      )
+  )
+severity: "low"
