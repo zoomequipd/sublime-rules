@@ -1,0 +1,12 @@
+name: 'Typo: "Unauthorize" in attachment'
+type: "query"
+source: | 
+  any(attachments,
+      any(file.explode(.),
+          (
+            any(.scan.strings.strings, strings.icontains(., 'unauthorize'))
+            or strings.icontains(.scan.ocr.raw, 'unauthorize')
+          )
+      )
+  )
+severity: "low"
