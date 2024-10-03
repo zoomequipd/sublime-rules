@@ -1,0 +1,7 @@
+name: "Invoice/order ID format AB#123CD in body"
+type: "query"
+source: | 
+  regex.contains(body.current_thread.text,
+                   '[A-Z]{2}#\d\d\d[A-Z]{2}'
+  )
+severity: "low"
