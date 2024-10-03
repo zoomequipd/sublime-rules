@@ -1,0 +1,5 @@
+name: "Explicit right-to-left attribute in body HTML"
+type: "query"
+source: |
+  strings.icontains(body.html.raw, 'dir="rtl"')
+severity: "low"
