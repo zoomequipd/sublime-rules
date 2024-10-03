@@ -1,5 +1,0 @@
-name: "Count of !important in body HTML"
-type: "query"
-source: |
-  strings.icount(body.html.raw, "!important")
-severity: "informational"
