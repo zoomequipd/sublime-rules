@@ -1,5 +1,0 @@
-name: "Educational (.edu) sender"
-type: "query"
-source: | 
-  strings.icontains(sender.email.domain.domain, ".edu.")
-severity: "medium"
