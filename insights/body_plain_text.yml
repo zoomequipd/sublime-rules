@@ -1,0 +1,5 @@
+name: "Plain text body"
+type: "query"
+source: | 
+  body.html.raw is null and length(body.plain.raw) > 0
+severity: "medium"
