@@ -1,0 +1,5 @@
+name: "Excessive count of email addresses in subject"
+type: "query"
+source: | 
+  strings.icount(subject.subject, "@") > 10
+severity: "low"
