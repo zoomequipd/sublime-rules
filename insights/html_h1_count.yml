@@ -1,0 +1,5 @@
+name: "Count of h1 in body HTML"
+type: "query"
+source: |
+  strings.icount(body.html.raw, "<h1")
+severity: "informational"
