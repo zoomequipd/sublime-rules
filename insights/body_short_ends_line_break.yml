@@ -1,0 +1,6 @@
+name: "Short body HTML ending with new-line character"
+type: "query"
+source: | 
+  length(body.html.raw) < 50
+  and strings.iends_with(body.html.raw, "\n")
+severity: "medium"
