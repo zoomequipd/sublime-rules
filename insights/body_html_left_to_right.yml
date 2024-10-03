@@ -1,0 +1,5 @@
+name: "Explicit left-to-right attribute in body HTML"
+type: "query"
+source: |
+  strings.icontains(body.html.raw, 'dir="ltr"')
+severity: "low"
