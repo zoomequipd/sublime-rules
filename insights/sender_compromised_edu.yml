@@ -1,5 +1,5 @@
 name: "Sender is a compromised educational account"
 type: "query"
 source: | 
-  sender.email.domain.tld in ("sch.id", "edu")
+  sender.email.domain.tld in ("sch.id", "edu", "ac.th")
 severity: "high"
