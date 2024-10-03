@@ -1,4 +1,4 @@
-name: "Date format %A, %d %B %Y in body"
+name: 'Date format "Monday, 01 January 2024" in body'
 type: "query"
 source: | 
   regex.icontains(body.current_thread.text,
