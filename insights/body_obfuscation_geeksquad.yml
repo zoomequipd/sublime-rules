@@ -1,0 +1,5 @@
+name: '"GeekSquad" obfuscation in body'
+type: "query"
+source: |
+  strings.icontains(body.current_thread.text, "Geek$quad")
+severity: "medium"
