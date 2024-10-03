@@ -5,7 +5,7 @@ source: |
   and (
     regex.icontains(body.current_thread.text, '\+\s?1')
     or regex.icontains(body.current_thread.text,
-                       '\+?1\s[0-9]{3}\s([0-9]{7}|[0-9]{3}\s[0-9]{4})'
+                       '\+?1\s\(?[0-9]{3}\)?\s([0-9]{7}|[0-9]{3}(\s|-)[0-9]{4})'
     )
     or regex.icontains(body.current_thread.text, '\b1\d{10}\b')
     or regex.icontains(body.current_thread.text, '\b1-\d{10}\b')
