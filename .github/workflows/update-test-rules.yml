@@ -160,6 +160,8 @@ jobs:
             cp "source/$file" "destination/$dir_path/${prefixed_filename}"
             
             # Generate a deterministic UUID based on the prefixed filename
+            # test-rules requires each rule to have a unique, but deterministic
+            # id.  This will be different than the auto generated one with the main branch
             new_uuid=$(generate_uuid "${prefixed_filename}")
             echo "Generated UUID for ${prefixed_filename}: ${new_uuid}"
             
