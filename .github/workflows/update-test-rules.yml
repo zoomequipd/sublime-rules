@@ -162,14 +162,7 @@ jobs:
             cp "source/$file" "destination/$dir_path/${prefixed_filename}"
 
             # Extract the original ID if it exists
-            if yq -e '.id' "destination/$dir_path/${prefixed_filename}" > /dev/null 2>&1; then
-              # Get the original ID without quotes by extracting the raw string value
-              original_id=$(yq -r '.id' "destination/$dir_path/${prefixed_filename}")
-              echo "Original ID: $original_id"
-              
-              # Preserve the original ID as og_id - ensure consistency with id format
-              yq -i '.og_id = "'"$original_id"'"' "destination/$dir_path/${prefixed_filename}"
-            fi
+            yq -i '.og_id = .id' "destination/$dir_path/${prefixed_filename}"
             
             # Generate a deterministic UUID based on the prefixed filename
             # test-rules requires each rule to have a unique, but deterministic
