@@ -163,12 +163,12 @@ jobs:
 
             # Extract the original ID if it exists
             if yq -e '.id' "destination/$dir_path/${prefixed_filename}" > /dev/null 2>&1; then
-              # Get the original ID
-              original_id=$(yq '.id' "destination/$dir_path/${prefixed_filename}")
+              # Get the original ID without quotes by extracting the raw string value
+              original_id=$(yq -r '.id' "destination/$dir_path/${prefixed_filename}")
               echo "Original ID: $original_id"
               
-              # Preserve the original ID as og_id
-              yq -i '.og_id = "'$original_id'"' "destination/$dir_path/${prefixed_filename}"
+              # Preserve the original ID as og_id - ensure consistency with id format
+              yq -i '.og_id = "'"$original_id"'"' "destination/$dir_path/${prefixed_filename}"
             fi
             
             # Generate a deterministic UUID based on the prefixed filename
@@ -178,7 +178,7 @@ jobs:
             echo "Generated UUID for ${prefixed_filename}: ${new_uuid}"
             
             # Update the ID in the YAML file using yq
-            yq -i '.id = "'$new_uuid'"' "destination/$dir_path/${prefixed_filename}"
+            yq -i '.id = "'"$new_uuid"'"' "destination/$dir_path/${prefixed_filename}"
             
             # Add testing_pr and testing_sha using yq
             yq -i '.testing_pr = env(pr_num)' "destination/$dir_path/${prefixed_filename}"
