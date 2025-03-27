@@ -171,7 +171,7 @@ jobs:
             echo "Generated UUID for ${prefixed_filename}: ${new_uuid}"
             
             # Update the ID in the YAML file using yq
-            yq -i '.id = "'"$new_uuid"'"' "destination/$dir_path/${prefixed_filename}"
+            yq -i '.id = "'$new_uuid'"' "destination/$dir_path/${prefixed_filename}"
             
             # Add testing_pr and testing_sha using yq
             yq -i '.testing_pr = env(pr_num)' "destination/$dir_path/${prefixed_filename}"
