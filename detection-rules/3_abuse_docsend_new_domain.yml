@@ -36,6 +36,6 @@ detection_methods:
   - "Header analysis"
   - "Sender analysis"
 id: "0454c839-b59e-541f-1e9c-866ee4d7022e"
-og_id: 3bc152f2-6722-57be-b924-055c35fa1e60
+og_id: "3bc152f2-6722-57be-b924-055c35fa1e60"
 testing_pr: 3
 testing_sha: 508810ccfb67b5856d5476e7520046d2be64029f
