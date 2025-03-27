@@ -168,7 +168,7 @@ jobs:
               echo "Original ID: $original_id"
               
               # Preserve the original ID as og_id
-              yq -i '.og_id = '"$original_id"'' "destination/$dir_path/${prefixed_filename}"
+              yq -i '.og_id = "'$original_id'"' "destination/$dir_path/${prefixed_filename}"
             fi
             
             # Generate a deterministic UUID based on the prefixed filename
