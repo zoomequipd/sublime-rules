@@ -12,6 +12,7 @@ source: |
 
   // the message needs to have a reply-to address
   and length(headers.reply_to) > 0
+
   
   // reply-to email address has never received an email from your org
   and not any(headers.reply_to, .email.email in $recipient_emails)
