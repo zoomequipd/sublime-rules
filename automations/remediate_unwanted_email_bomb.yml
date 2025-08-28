@@ -9,7 +9,7 @@ source: |
     // If authentication fails at all during a bomb, we always want to remediate
     not headers.auth_summary.dmarc.pass
     or not headers.auth_summary.spf.pass
-
+  
     // Otherwise, we need to check for content or other heuristics to identify messages
     // that are noisy within the bomb. To prevent overreach, we ignore cases where this
     // is already an established sender relationship.
@@ -32,14 +32,14 @@ source: |
               "Social Media and Networking",
             )
         )
-
+  
         // Or it's already likely to be graymail
         or ml.attack_score().verdict not in (
           "likely_benign",
           "unknown",
           "suspicious"
         )
-
+  
         // Undisclosed recipients
         or (
           length(recipients.bcc) > 0
@@ -48,16 +48,8 @@ source: |
                  strings.ilike(.display_name, "undisclosed?recipients")
           )
         )
-
-        // Potential fake thread
-        or (
-          regex.imatch(subject.subject,
-                       '(\[[^\]]+\]\s?){0,3}(re|fwd?|automat.*)\s?:.*'
-          ) == true
-          and (length(headers.references) == 0 or headers.in_reply_to is null) == true
-        )
       )
-
+  
       // And the sender doesn't match any familiarity checks
       and sender.email.domain.root_domain not in $high_trust_sender_root_domains
       and sender.email.domain.root_domain not in $org_domains
@@ -66,7 +58,14 @@ source: |
       and not profile.by_sender().any_messages_benign
       and profile.by_sender().days_known < 3
       and length(body.previous_threads) == 0
-      and not subject.is_forward
-      and not subject.is_reply
+      // negate replies/forwards unless they could be fake
+      and (
+        (not subject.is_forward and not subject.is_reply)
+        // Potential fake thread       
+        or (
+          (subject.is_reply or subject.is_forward)
+          and (length(headers.references) == 0 or headers.in_reply_to is null)
+        )
+      )
     )
   )
