@@ -39,14 +39,12 @@ source: |
           "unknown",
           "suspicious"
         )
-  
+
         // Undisclosed recipients
         or (
           length(recipients.bcc) > 0
           or length(recipients.cc) > 0
-          or any(recipients.to,
-                 strings.ilike(.display_name, "undisclosed?recipients")
-          )
+          or all(recipients.to, not .email.domain.valid)
         )
       )
 
