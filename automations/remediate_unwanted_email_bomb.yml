@@ -9,7 +9,7 @@ source: |
     // If authentication fails at all during a bomb, we always want to remediate
     not headers.auth_summary.dmarc.pass
     or not headers.auth_summary.spf.pass
-  
+
     // Otherwise, we need to check for content or other heuristics to identify messages
     // that are noisy within the bomb. To prevent overreach, we ignore cases where this
     // is already an established sender relationship.
@@ -32,7 +32,7 @@ source: |
               "Social Media and Networking",
             )
         )
-  
+
         // Or it's already likely to be graymail
         or ml.attack_score().verdict not in (
           "likely_benign",
@@ -49,7 +49,7 @@ source: |
           )
         )
       )
-  
+
       // And the sender doesn't match any familiarity checks
       and sender.email.domain.root_domain not in $high_trust_sender_root_domains
       and sender.email.domain.root_domain not in $org_domains
