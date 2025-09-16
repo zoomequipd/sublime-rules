@@ -11,24 +11,20 @@ source: |
     // sender display name is a strong enough indicator
     // that it can be used without any other impersonation logic
     (
-      regex.icontains(sender.display_name,
-                      'facebook ?ads',
-                      'facebook ?business',
-                      'meta ?account',
-                      'meta ?help',
-                      'meta ?support',
-                      'meta ?business',
-                      'meta ?for ?business',
-                      'meta ?policy',
-                      'page ?ads ?support',
-                      'Instagram ?Not',
-                      'Instagram ?Policies',
-                      'Instagram ?Report',
-                      'Instagram ?Helpdesk',
-                      'Instagram ?Support',
-                      'Ads ?Team',
-                      'Meta & Coursera',
-                      'Compliance & Security'
+      strings.ilike(sender.display_name,
+                    '*facebook ads*',
+                    '*facebook business*',
+                    '*meta support*',
+                    '*meta business*',
+                    '*meta for business*',
+                    '*meta policy*',
+                    '*page ads support*',
+                    'Instagram Not*',
+                    'Instagram Policies*',
+                    'Instagram Report*',
+                    'Instagram Helpdesk*',
+                    'Instagram Support*',
+                    '*Ads Team'
       )
       or strings.ilevenshtein(sender.display_name, 'facebook ads') <= 2
       or strings.ilevenshtein(sender.display_name, 'facebook business') <= 2
@@ -38,11 +34,6 @@ source: |
         and not (
           sender.display_name == "Zeta Support"
           and sender.email.domain.root_domain == 'zetaglobal.net'
-        )
-        and not (
-          sender.display_name == "Veza Support"
-          and sender.email.domain.root_domain == 'veza.com'
-          and headers.auth_summary.dmarc.pass
         )
       )
       or strings.ilike(sender.email.domain.domain, '*facebook*')
@@ -79,7 +70,12 @@ source: |
                .name in ("cred_theft", "callback_scam", "steal_pii")
                and .confidence in ("medium", "high")
         )
-        or regex.icontains(body.plain.raw, "(violation|infringe|copyright)")
+        or (
+          length(body.current_thread.text) < 2000
+          and regex.icontains(body.current_thread.text,
+                              "(?:violation|infringe|copyright)"
+          )
+        )
         or any(body.links, .href_url.domain.root_domain == "rebrand.ly")
       )
     )
@@ -149,10 +145,6 @@ source: |
               .name == "urgency"
       )
     )
-    or (
-      strings.icontains(body.current_thread.text, "Meta Professional Certificate")
-      and strings.icontains(body.current_thread.text, "Meta & Coursera Team")
-    )
   )
   and sender.email.domain.root_domain not in~ (
     'facebook.com',
@@ -166,9 +158,7 @@ source: |
     'fbworkmail.com',
     'workplace.com',
     'capterra.com', // they mention "Community Guidelines"
-    'facebookblueprint.com',
-    'metaenterprisemail.com',
-    'pigfacebookstore.com.au' // unrelated domain but hitting on facebook 
+    'facebookblueprint.com'
   )
   // negate metaenterprise links
   and not any(headers.reply_to, .email.email == "noreply@facebookmail.com")
