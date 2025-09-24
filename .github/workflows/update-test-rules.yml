@@ -122,47 +122,28 @@ jobs:
             continue
           fi
         
+          # Determine status directly from git
+          GIT_STATUS=$(git status --porcelain "$FILE" | cut -c1-2 | tr -d ' ')
+          if [[ "$GIT_STATUS" == "A" ]]; then
+            ADDED_COUNT=$((ADDED_COUNT+1))
+            # add new files directly into FILES_TO_COMMIT and go to the next file
+            FILES_TO_COMMIT+=("$FILE")
+            continue
+          elif [[ "$GIT_STATUS" == "M" ]]; then
+            MODIFIED_COUNT=$((MODIFIED_COUNT+1))
+          else
+            MODIFIED_COUNT=$((MODIFIED_COUNT+1))
+          fi
+
+          # We only reach this point if it's a modified file
           # Check if only testing_sha field changed
           DIFF_OUTPUT=$(git diff HEAD -- "$FILE")
           TESTING_SHA_ONLY=false
-        
+
           # Check if the diff only contains testing_sha changes
           # Look for lines that are only additions/deletions of testing_sha with hash values
           # Handle files that may not have trailing newlines
-          
-          echo "DEBUG: Processing file: $FILE"
-          echo "DEBUG: DIFF_OUTPUT for $FILE:"
-          echo "$DIFF_OUTPUT" | sed 's/^/DEBUG-DIFF: /'
-          echo "DEBUG: End of DIFF_OUTPUT"
-          
-          # Break down the problematic line into steps for debugging
-          echo "DEBUG: Step 1 - All lines starting with + or -:"
-          STEP1=$(echo "$DIFF_OUTPUT" | grep -E '^[+-]')
-          echo "$STEP1" | sed 's/^/DEBUG-STEP1: /' || echo "DEBUG-STEP1: No lines found or grep failed"
-          
-          echo "DEBUG: Step 2 - Remove file headers (+++ ---):"
-          STEP2=$(echo "$STEP1" | grep -v -E '^[+-]{3} ')
-          echo "$STEP2" | sed 's/^/DEBUG-STEP2: /' || echo "DEBUG-STEP2: No lines found or grep failed"
-          
-          echo "DEBUG: Step 3 - Remove testing_sha lines:"
-          STEP3=$(echo "$STEP2" | grep -v -E '^[+-]testing_sha: [0-9a-f]+')
-          echo "$STEP3" | sed 's/^/DEBUG-STEP3: /' || echo "DEBUG-STEP3: No lines found or grep failed"
-          
-          echo "DEBUG: Step 4 - Remove 'No newline at end of file' lines:"
-          STEP4=$(echo "$STEP3" | grep -v '^\\ No newline at end of file')
-          STEP4_EXIT_CODE=$?
-          echo "DEBUG: grep exit code for step 4: $STEP4_EXIT_CODE"
-          echo "$STEP4" | sed 's/^/DEBUG-STEP4: /' || echo "DEBUG-STEP4: No lines found or grep failed"
-          
-          # Test the original problematic line
-          echo "DEBUG: Testing original combined command:"
-          set -x
           NON_TESTING_SHA_CHANGES=$(echo "$DIFF_OUTPUT" | grep -E '^[+-]' | grep -v -E '^[+-]{3} ' | grep -v -E '^[+-]testing_sha: [0-9a-f]+' | grep -v '^\\ No newline at end of file')
-          COMBINED_EXIT_CODE=$?
-          set +x
-          echo "DEBUG: Combined command exit code: $COMBINED_EXIT_CODE"
-          echo "DEBUG: NON_TESTING_SHA_CHANGES result: '$NON_TESTING_SHA_CHANGES'"
-          
           if [[ -n "$NON_TESTING_SHA_CHANGES" ]]; then
             # There are other changes besides testing_sha
             TESTING_SHA_ONLY=false
@@ -175,10 +156,10 @@ jobs:
               continue
             fi
           fi
-        
+          
           # File has substantive changes, add to commit list
           FILES_TO_COMMIT+=("$FILE")
-        
+          
           # Determine status directly from git
           GIT_STATUS=$(git status --porcelain "$FILE" | cut -c1-2 | tr -d ' ')
           if [[ "$GIT_STATUS" == "A" ]]; then
@@ -211,25 +192,25 @@ jobs:
             git commit -m "[PR #${PR_NUMBER}] Delete detection rule"
             continue
           fi
-        
+          
           # Extract rule name and commit
           RULE_NAME=$(grep -m 1 "name:" "$FILE" | sed 's/name: //' | sed 's/^"//' | sed 's/"$//' | sed "s/^'//" | sed "s/'$//")
           BASENAME=$(basename "$FILE")
           PR_NUMBER=$(echo "$BASENAME" | grep -o "^[0-9]*")
-        
+          
           # Determine status directly from git
           GIT_STATUS=$(git status --porcelain "$FILE" | cut -c1-2 | tr -d ' ')
           if [[ "$GIT_STATUS" == "A" ]]; then
             STATUS="added"
           elif [[ "$GIT_STATUS" == "M" ]]; then
-            STATUS="modified"
+            STATUS="modified" 
           else
             STATUS="changed"
           fi
-        
+          
           # Build commit message
           COMMIT_MSG="[PR #${PR_NUMBER}] ${STATUS} rule: ${RULE_NAME}"
-        
+          
           # Add file and commit
           git add "$FILE"
           git commit -m "$COMMIT_MSG"
