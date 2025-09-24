@@ -134,10 +134,6 @@ jobs:
             FILES_TO_COMMIT+=("$FILE")
             echo "DEBUG: BSM - ADDED $FILE to FILES_TO_COMMIT"
             continue
-          elif [[ "$GIT_STATUS" == "M" ]]; then
-            MODIFIED_COUNT=$((MODIFIED_COUNT+1))
-          else
-            MODIFIED_COUNT=$((MODIFIED_COUNT+1))
           fi
 
           # We only reach this point if it's a modified file
