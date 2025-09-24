@@ -110,13 +110,13 @@ jobs:
           if [[ ! "$FILE" =~ .*\.yml$ ]]; then
             continue
           fi
-        
+          
           BASENAME=$(basename "$FILE")
-        
+          
           # Extract PR number from filename (format: PR_NUMBER_filename.yml)
           PR_NUMBER=$(echo "$BASENAME" | grep -o "^[0-9]*")
           UPDATED_PRS+=("$PR_NUMBER")
-        
+          
           # Handle removed files
           if [[ ! -f "$FILE" ]]; then
             FILES_TO_COMMIT+=("$FILE")
