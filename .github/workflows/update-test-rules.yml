@@ -126,6 +126,7 @@ jobs:
           
           # Determine status directly from git
           GIT_STATUS=$(git status --porcelain "$FILE" | cut -c1-2 | tr -d ' ')
+          echo "DEBUG: BSM - GIT_STATUS of $FILE is $GIT_STATUS"
           if [[ "$GIT_STATUS" == "A" ]]; then
             ADDED_COUNT=$((ADDED_COUNT+1))
             # add new files directly into FILES_TO_COMMIT and go to the next file
