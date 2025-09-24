@@ -193,6 +193,15 @@ jobs:
           # File has substantive changes, add to commit list
           FILES_TO_COMMIT+=("$FILE")
           
+          # Determine status directly from git
+          GIT_STATUS=$(git status --porcelain "$FILE" | cut -c1-2 | tr -d ' ')
+          if [[ "$GIT_STATUS" == "A" ]]; then
+            ADDED_COUNT=$((ADDED_COUNT+1))
+          elif [[ "$GIT_STATUS" == "M" ]]; then
+            MODIFIED_COUNT=$((MODIFIED_COUNT+1))
+          else
+            MODIFIED_COUNT=$((MODIFIED_COUNT+1))
+          fi
         done
         
         # Report testing_sha-only changes
